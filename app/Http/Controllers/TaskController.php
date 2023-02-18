@@ -17,13 +17,9 @@ class TaskController extends Controller
      */
     public function index(): View
     {
-        if (Feature::active(TasksManagement::class)) {
-            $tasks = Task::all();
+        $tasks = Task::all();
 
-            return view('tasks.index', compact('tasks'));
-        } else {
-            
-        }
+        return view('tasks.index', compact('tasks'));
     }
 
     /**

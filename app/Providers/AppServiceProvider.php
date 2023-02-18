@@ -3,9 +3,11 @@
 namespace App\Providers;
 
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Lottery;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Pennant\Feature;
+use Laravel\Pennant\Middleware\EnsureFeaturesAreActive;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -31,6 +33,12 @@ class AppServiceProvider extends ServiceProvider
 
             // return Lottery::odds(1, 5);
         });
+
+        EnsureFeaturesAreActive::whenInactive(
+            function (Request $request, array $features) {
+                abort(403);
+            }
+        );
 
         // Feature::define('tasks-management', Lottery::odds(1, 5));
     }
