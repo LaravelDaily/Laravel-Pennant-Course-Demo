@@ -17,9 +17,12 @@ class TaskController extends Controller
      */
     public function index(): View
     {
-        $tasks = Task::all();
-
-        return view('tasks.index', compact('tasks'));
+        if (Feature::for(auth()->user()->team)->active('tasks-management')) {
+            $tasks = Task::all();
+            return view('tasks.index', compact('tasks'));
+        } else {
+            abort(403);
+        }
     }
 
     /**
