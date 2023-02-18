@@ -35,4 +35,4 @@ class AppServiceProvider extends ServiceProvider
         // Feature::define('tasks-management', Lottery::odds(1, 5));
     }
 }
-c
+

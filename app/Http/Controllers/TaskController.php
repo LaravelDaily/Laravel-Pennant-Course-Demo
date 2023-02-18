@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Features\TasksManagement;
 use App\Models\Task;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\View\View;
+use Laravel\Pennant\Feature;
 
 class TaskController extends Controller
 {
@@ -15,9 +17,13 @@ class TaskController extends Controller
      */
     public function index(): View
     {
-        $tasks = Task::all();
+        if (Feature::active(TasksManagement::class)) {
+            $tasks = Task::all();
 
-        return view('tasks.index', compact('tasks'));
+            return view('tasks.index', compact('tasks'));
+        } else {
+            
+        }
     }
 
     /**
