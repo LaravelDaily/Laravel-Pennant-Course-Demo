@@ -40,6 +40,12 @@ class AppServiceProvider extends ServiceProvider
             return $team->name == 'Team 1';
         });
 
+        Feature::define('purchase-button-label', fn (User $user) => Arr::random([
+            'Buy Now',
+            'Buy Premium',
+            'Buy',
+        ]));
+
         EnsureFeaturesAreActive::whenInactive(
             function (Request $request, array $features) {
                 abort(403);
